@@ -11,4 +11,4 @@ ip3 = "10.150.0.12"
 ip4 = "10.150.0.13"
 ip5 = "10.150.0.14"
 ssh_key = "~/.ssh/silveira.pub"
-bastion_ip = 35.188.131.0
+bastion_ip = "35.188.131.0"
