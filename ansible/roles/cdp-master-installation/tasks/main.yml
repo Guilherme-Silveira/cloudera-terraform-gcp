@@ -1,0 +1,7 @@
+---
+# tasks file for cdp-master-installation
+- name: Getting Cloudera Manager Installer
+  get_url:
+    url: https://archive.cloudera.com/cm7/7.0.3/cloudera-manager-installer.bin
+    dest: /home/silveira/cloudera-manager-installer.bin
+    mode: 755

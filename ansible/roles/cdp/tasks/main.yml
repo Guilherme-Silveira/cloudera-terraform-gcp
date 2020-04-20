@@ -1,0 +1,91 @@
+---
+# tasks file for cdp
+- name: disable SELINUX
+  command: setenforce 0
+
+- name: disable SELINUX on reboot
+  selinux:
+    state: disabled
+
+- name: disable swappiness
+  command: swapoff -a
+
+- name: sysctl swappiness
+  sysctl:
+    name: vm.swappiness
+    value: 1
+    reload: yes
+    state: present
+    sysctl_set: yes
+    sysctl_file: /etc/sysctl.conf
+
+- name: Installing wget and vim
+  yum:
+    name: {{ packages }}
+    state: latest
+  vars:
+    packages:
+    - vim
+    - wget
+    - yum-utils
+    - ntp
+    - telnet
+    - unzip
+    - nscd
+
+- name: disable firewalld
+  systemd:
+    state: stopped
+    name: firewalld
+    enabled: no
+    masked: yes
+
+- name: Disable THP
+  command: {{ item }}
+  with_items:
+    - echo never > /sys/kernel/mm/transparent_hugepage/enabled
+    - echo never > /sys/kernel/mm/transparent_hugepage/defrag
+
+- name: Disable THP support scripts added to rc.local
+  lineinfile:
+    path: /etc/rc.local
+    line: |
+      echo never > /sys/kernel/mm/transparent_hugepage/enabled
+      echo never > /sys/kernel/mm/transparent_hugepage/defrag
+
+- name: Change permissions of /etc/rc.local to make it run on boot
+  shell: chmod +x /etc/rc.d/rc.local
+  become_method: sudo
+
+- name: Setting limits.conf - NOFile
+  pam_limits:
+    domain: *
+    limit_type: {{ item }}
+    limit_item: nofile
+    value: 64000
+  with_items:
+    - soft
+    - hard
+
+- name: Setting limits.conf - NProc
+  pam_limits:
+    domain: *
+    limit_type: {{ item }}
+    limit_item: nproc
+    value: 64000
+  with_items:
+    - soft
+    - hard
+
+- name: Enable NSCD
+  systemd:
+    state: started
+    enabled: yes
+
+- name: Sync NTP
+  yum:
+    exclude: chrony
+    state: present
+  systemd:
+    state: started
+    enabled: yes
