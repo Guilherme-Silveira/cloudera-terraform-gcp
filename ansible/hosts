@@ -6,11 +6,12 @@ master-01 ansible_host=10.150.0.10
 master-02 ansible_host=10.150.0.11
 
 [workers]
-worker1 ansible_host=10.150.0.12
-worker2 ansible_host=10.150.0.13
-worker3 ansible_host=10.150.0.14
+worker-01 ansible_host=10.150.0.12
+worker-02 ansible_host=10.150.0.13
+worker-03 ansible_host=10.150.0.14
 
 [all:vars]
 ansible_user=silveira
 ansible_ssh_private_key_file=/tmp/silveira
 ansible_become=yes
+tmp_dir=/tmp
