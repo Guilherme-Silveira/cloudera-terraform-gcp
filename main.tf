@@ -56,6 +56,10 @@ variable "ssh_key" {
  type = string
 }
 
+variable "bastion_ip" {
+ type = string
+}
+
 resource "google_compute_instance" "master-01" {
  name         = var.instance1
  machine_type = "n1-standard-4"
@@ -185,3 +189,5 @@ resource "google_compute_instance" "data-03" {
    ssh-keys = "silveira:${file("${var.ssh_key}")}"
  }
 }
+
+
