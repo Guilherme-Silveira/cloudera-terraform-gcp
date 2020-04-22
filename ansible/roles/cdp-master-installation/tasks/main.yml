@@ -51,8 +51,6 @@
     name: cloudera-scm-server
     state: started
     enabled: yes
-<<<<<<< HEAD
-=======
 
 - name: Using Cluster Deployment
   uri:
@@ -63,4 +61,4 @@
     headers: json
     method: POST
     force_basic_auth: yes
->>>>>>> 51b995cfb0482bdd30fd78b053a5c54252066a1e
+
