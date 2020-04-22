@@ -69,3 +69,10 @@
     headers: json
     method: POST
     force_basic_auth: yes
+
+- name: Restart Cloudera Manager Server
+  systemd:
+    name: cloudera-scm-server
+    state: restarted
+    enabled: yes
+
