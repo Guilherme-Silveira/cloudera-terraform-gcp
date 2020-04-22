@@ -51,3 +51,16 @@
     name: cloudera-scm-server
     state: started
     enabled: yes
+<<<<<<< HEAD
+=======
+
+- name: Using Cluster Deployment
+  uri:
+    url: "http://{{ hostvars['master-01'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
+    body: "{{ lookup('file','/home/silveira/cloudera-terraform-gcp/ansible/roles/cdp-master-installation/tasks/cm-template.json') }}"
+    user: admin
+    password: admin
+    headers: json
+    method: POST
+    force_basic_auth: yes
+>>>>>>> 51b995cfb0482bdd30fd78b053a5c54252066a1e
