@@ -51,3 +51,21 @@
     name: cloudera-scm-server
     state: started
     enabled: yes
+
+- name: Copy cm-deployment from local server to remote server
+  copy:
+    src: ./cm-deployment.json
+    dest: /tmp/cm-deployment.json
+    owner: silveira
+    group: silveira
+    mode: '0755'
+
+- name: Using Cluster Deployment
+  uri:
+    url: "http://{{ hostvars['master-01'].ansible_default_ipv4.address }}:7180/api/v32/cm/deployment?deleteCurrentDeployment=true"
+    body: "{{ lookup('file','/tmp/cm-deployment.json') }}"
+    user: admin
+    password: admin
+    headers: json
+    method: POST
+    force_basic_auth: yes
