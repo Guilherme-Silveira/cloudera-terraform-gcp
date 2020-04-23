@@ -8,6 +8,45 @@
     "product" : "CDH"
   } ],
   "services" : [ {
+    "refName" : "mgmt",
+    "serviceType" : "MGMT",
+    "roleConfigGroups" : [ {
+      "refName": "mgmt-HOSTMONITOR-BASE",
+      "roleType" : "HOSTMONITOR",
+      "base" : "true",
+      "configs" : [ {
+	  "name" : "firehose_non_java_memory_bytes",
+	  "value": "805306368"
+        }	      
+      ]
+    },
+    {
+      "refName": "mgmt-SERVICEMONITOR-BASE",
+      "roleType" : "SERVICEMONITOR",
+      "base" : "true",
+      "configs" : [ {
+          "name" : "firehose_non_java_memory_bytes",
+          "value": "805306368"
+        }
+      ]
+    },
+    {
+      "refName": "mgmt-ALERTPUBLISHER-BASE",
+      "roleType" : "ALERTPUBLISHER",
+      "base" : "true"
+    },
+    {
+      "refName": "mgmt-EVENTSERVER-BASE",
+      "roleType" : "EVENTSERVER",
+      "base" : "true",
+      "configs" : [ {
+          "name" : "event_server_heapsize",
+          "value": "262144000"
+        }
+      ]
+    }
+   ]
+  }, {
     "refName" : "zookeeper",
     "serviceType" : "ZOOKEEPER",
     "roleConfigGroups" : [ {
@@ -183,7 +222,7 @@
   }, {
     "refName" : "HostTemplate-1-from-master-01.srv",
     "cardinality" : 1,
-    "roleConfigGroupsRefNames" : [ "hdfs-BALANCER-BASE", "hdfs-NAMENODE-BASE", "hive-GATEWAY-BASE", "hive-HIVEMETASTORE-BASE", "hive_on_tez-GATEWAY-BASE", "hive_on_tez-HIVESERVER2-BASE", "hue-HUE_LOAD_BALANCER-BASE", "hue-HUE_SERVER-BASE", "impala-CATALOGSERVER-BASE", "impala-STATESTORE-BASE", "queuemanager-QUEUEMANAGER_STORE-BASE", "queuemanager-QUEUEMANAGER_WEBAPP-BASE", "spark_on_yarn-GATEWAY-BASE", "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", "tez-GATEWAY-BASE", "yarn-JOBHISTORY-BASE", "yarn-RESOURCEMANAGER-BASE", "zookeeper-SERVER-BASE" ]
+    "roleConfigGroupsRefNames" : [ "hdfs-BALANCER-BASE", "hdfs-NAMENODE-BASE", "hive-GATEWAY-BASE", "hive-HIVEMETASTORE-BASE", "hive_on_tez-GATEWAY-BASE", "hive_on_tez-HIVESERVER2-BASE", "hue-HUE_LOAD_BALANCER-BASE", "hue-HUE_SERVER-BASE", "impala-CATALOGSERVER-BASE", "impala-STATESTORE-BASE", "queuemanager-QUEUEMANAGER_STORE-BASE", "queuemanager-QUEUEMANAGER_WEBAPP-BASE", "spark_on_yarn-GATEWAY-BASE", "spark_on_yarn-SPARK_YARN_HISTORY_SERVER-BASE", "tez-GATEWAY-BASE", "yarn-JOBHISTORY-BASE", "yarn-RESOURCEMANAGER-BASE", "zookeeper-SERVER-BASE", "mgmt-EVENTSERVER-BASE", "mgmt-HOSTMONITOR-BASE", "mgmt-ALERTPUBLISHER-BASE", "mgmt-SERVICEMONITOR-BASE" ]
   }, {
     "refName" : "HostTemplate-2-from-master-02.srv",
     "cardinality" : 1,
