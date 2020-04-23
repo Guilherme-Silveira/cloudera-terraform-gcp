@@ -23,24 +23,10 @@
   command: bash /tmp/mysql.sh
   become: yes
 
-- name: Add Cloudera Manager Yum Repo
-  yum_repository:
-    name: Cloudera-Manager
-    description: Cloudera YUM repository
-    baseurl: https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/
-    gpgkey: https://archive.cloudera.com/cm7/7.0.3/redhat7/yum/RPM-GPG-KEY-cloudera
-    gpgcheck: yes
-
 - name: Installing cloudera-manager-server
   yum:
     name: cloudera-manager-server
     state: present
-
-- name: Installing cloudera-manager-daemons
-  yum:
-    name: cloudera-manager-daemons
-    state: present
-
 
 - name: SCM Prepare Database
   command: bash /opt/cloudera/cm/schema/scm_prepare_database.sh mysql scm scm scm
@@ -54,11 +40,13 @@
 
 - name: Using Cluster Deployment
   uri:
-    url: "http://{{ hostvars['master-01'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
+    url: "http://master-01:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
     body: "{{ lookup('file','/home/silveira/cloudera-terraform-gcp/ansible/roles/cdp-master-installation/tasks/cm-template.json') }}"
     user: admin
     password: admin
-    headers: json
     method: POST
-    force_basic_auth: yes
-
+    body_format: json
+  register: _result
+  until: _result.status == 200
+  retries: 720 
+  delay: 5

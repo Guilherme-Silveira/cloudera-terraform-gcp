@@ -10,9 +10,6 @@ worker-01 ansible_host=10.150.0.12
 worker-02 ansible_host=10.150.0.13
 worker-03 ansible_host=10.150.0.14
 
-[single-node]
-cloudera ansible_host=10.128.0.20
-
 [all:vars]
 ansible_user=silveira
 ansible_ssh_private_key_file=/tmp/silveira

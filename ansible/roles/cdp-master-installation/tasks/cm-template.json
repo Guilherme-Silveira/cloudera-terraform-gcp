@@ -196,16 +196,16 @@
   "instantiator" : {
     "clusterName" : "silveira",
     "hosts" : [ {
-      "hostName" : "master-01",
+      "hostName" : "master-01.srv",
       "hostTemplateRefName" : "HostTemplate-1-from-master-01.srv"
     }, {
-      "hostName" : "master-02",
+      "hostName" : "master-02.srv",
       "hostTemplateRefName" : "HostTemplate-2-from-master-02.srv"
     }, {
-      "hostName" : "worker-01",
+      "hostName" : "worker-01.srv",
       "hostTemplateRefName" : "HostTemplate-0-from-worker-01.srv"
     }, {
-      "hostNameRange" : "worker-[02-03]",
+      "hostNameRange" : "worker-[02-03].srv",
       "hostTemplateRefName" : "HostTemplate-3-from-worker-[02-03].srv"
     } ],
     "variables" : [ {
