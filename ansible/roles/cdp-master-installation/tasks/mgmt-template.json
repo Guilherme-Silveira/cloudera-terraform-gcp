@@ -1,0 +1,35 @@
+{
+ 	"name": "MGMT",
+	"displayName": "Cloudera Management Service",
+        "serviceState": "STARTING",
+	"roles": [{
+		"type": "HOSTMONITOR",
+		"hostRef": {
+			"hostId": "8d857d3b-b65e-4e0c-803e-7da8b72ee59e",
+			"hostname": "master-01.srv"
+		},
+                        "roleState": "STARTING"
+	}, {
+		"type": "SERVICEMONITOR",
+		"hostRef": {
+			"hostId": "8d857d3b-b65e-4e0c-803e-7da8b72ee59e",
+			"hostname": "master-01.srv"
+		},
+                        "roleState": "STARTING"
+	}, {
+		"type": "EVENTSERVER",
+		"hostRef": {
+			"hostId": "8d857d3b-b65e-4e0c-803e-7da8b72ee59e",
+			"hostname": "master-01.srv"
+		},
+                        "roleState": "STARTING"
+	}, {
+		"type": "ALERTPUBLISHER",
+		"hostRef": {
+			"hostId": "8d857d3b-b65e-4e0c-803e-7da8b72ee59e",
+			"hostname": "master-01.srv"
+			},
+                        "roleState": "STARTING"
+		}
+	]
+}
