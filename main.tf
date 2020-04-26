@@ -208,7 +208,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.master-01.network_interface.0.access_config.0.nat_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -220,7 +220,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.master-02.network_interface.0.access_config.0.nat_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -232,7 +232,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.data-01.network_interface.0.access_config.0.nat_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -244,7 +244,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.data-02.network_interface.0.access_config.0.nat_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -256,7 +256,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = google_compute_instance.data-03.network_interface.0.access_config.0.nat_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "echo OK"
@@ -268,7 +268,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = "silveira"
      host = var.bastion_ip
-     private_key = var.private_key
+     private_key = file(var.private_key)
    }
    inline = [
      "cd /home/silveira/cloudera-terraform-gcp/ansible",
