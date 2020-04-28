@@ -1,5 +1,5 @@
 provider "google" {
- credentials = file("~/Documents/credentials.json")
+ credentials = file("../credentials.json")
  project     = "inlaid-lane-270316"
  region      = var.zone
 }
