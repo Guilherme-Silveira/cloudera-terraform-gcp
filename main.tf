@@ -272,7 +272,7 @@ resource "null_resource" "hosts" {
    }
    inline = [
      "cd /home/silveira/cloudera-terraform-gcp/ansible",
-     "ansible-playbook -i hosts cloudera.yml",
+     "ansible-playbook -i hosts cloudera-cdh.yml",
    ]
  }
 }
