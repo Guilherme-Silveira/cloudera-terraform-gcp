@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: cluster
   gather_facts: true
   become: true
   roles:
