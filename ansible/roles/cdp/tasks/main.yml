@@ -160,7 +160,7 @@
   lineinfile:
     dest: /etc/cloudera-scm-agent/config.ini
     regexp: "^server_host"
-    line: "server_host=master-01.srv"
+    line: "server_host={{ hostvars['cloudera'].hostname }}"
 
 - name: Restart Cloudera Manager Agents
   service:

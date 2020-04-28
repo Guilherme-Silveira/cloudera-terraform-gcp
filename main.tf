@@ -64,6 +64,10 @@ variable "private_key" {
  type = string
 }
 
+variable "playbook" {
+ type = string
+}
+
 resource "google_compute_instance" "master-01" {
  name         = var.instance1
  machine_type = "n1-standard-4"
@@ -272,7 +276,7 @@ resource "null_resource" "hosts" {
    }
    inline = [
      "cd /home/silveira/cloudera-terraform-gcp/ansible",
-     "ansible-playbook -i hosts cloudera-cdh.yml",
+     "ansible-playbook -i hosts ${var.playbook}",
    ]
  }
 }

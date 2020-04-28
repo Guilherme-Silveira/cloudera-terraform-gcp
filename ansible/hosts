@@ -1,5 +1,5 @@
 [cloudera-manager]
-cloudera ansible_host=10.150.0.10 hostname=master-01
+cloudera ansible_host=10.150.0.10 hostname=master-01.srv
 
 [cluster]
 master-01 ansible_host=10.150.0.10
