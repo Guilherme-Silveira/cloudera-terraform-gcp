@@ -100,7 +100,7 @@
 - name: Using Cluster Deployment
   uri:
     url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
-    body: "{{ lookup('file','~/cloudera-terraform-gcp/ansible/roles/cdp-master-installation/tasks/cm-template.json') }}"
+    body: "{{ lookup('file','~/cloudera-terraform-gcp/ansible/roles/cdh-master-installation/tasks/cm-template.json') }}"
     user: admin
     password: admin
     method: POST
