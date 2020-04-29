@@ -147,23 +147,23 @@
     } ]
   } ],
   "hostTemplates" : [ {
-    "refName" : "HostTemplate-0-from-{{ master-02 }}",
+    "refName" : "HostTemplate-0-from-{{ master_02 }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-SECONDARYNAMENODE-BASE", "hive-GATEWAY-BASE", "zookeeper-SERVER-BASE" ]
   }, {
-    "refName" : "HostTemplate-1-from-{{ worker-02 }}",
+    "refName" : "HostTemplate-1-from-{{ worker_02 }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "yarn-NODEMANAGER-BASE" ]
   }, {
-    "refName" : "HostTemplate-4-from-{{ worker-03 }}",
+    "refName" : "HostTemplate-4-from-{{ worker_03 }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "yarn-NODEMANAGER-BASE" ]
   }, {
-    "refName" : "HostTemplate-2-from-{{ master-01 }}",
+    "refName" : "HostTemplate-2-from-{{ master_01 }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-BALANCER-BASE", "hdfs-NAMENODE-BASE", "hive-GATEWAY-BASE", "hive-HIVEMETASTORE-BASE", "hive-HIVESERVER2-BASE", "hue-HUE_LOAD_BALANCER-BASE", "hue-HUE_SERVER-BASE", "impala-CATALOGSERVER-BASE", "impala-STATESTORE-BASE", "oozie-OOZIE_SERVER-BASE", "yarn-JOBHISTORY-BASE", "yarn-RESOURCEMANAGER-BASE", "zookeeper-SERVER-BASE" ]
   }, {
-    "refName" : "HostTemplate-3-from-{{ worker-01 }}",
+    "refName" : "HostTemplate-3-from-{{ worker_01 }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-1", "hive-GATEWAY-BASE", "impala-IMPALAD-1", "yarn-NODEMANAGER-1", "zookeeper-SERVER-BASE" ]
   } ],
