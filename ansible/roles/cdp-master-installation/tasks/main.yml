@@ -97,15 +97,28 @@
   retries: 720
   delay: 5
 
+- name: Cloudera template to /tmp/cm-template.json
+  template:
+    src: ./cm-template.json.j2
+    dest: "{{ tmp_dir }}/cm-template.json"
+    owner: silveira
+    group: silveira
+    mode: '0644'
+
+- name: Content of JSON
+  command: cat {{ tmp_dir }}/cm-template.json
+  register: clouderaTemplateContent
+
 - name: Using Cluster Deployment
   uri:
     url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
-    body: "{{ lookup('file','~/cloudera-terraform-gcp/ansible/roles/cdp-master-installation/tasks/cm-template.json') }}"
+    body: "{{ clouderaTemplateContent.stdout }}"
     user: admin
     password: admin
     method: POST
     body_format: json
   register: _result2
   until: _result2.status == 200
-  retries: 720 
+  retries: 720
   delay: 5
+
