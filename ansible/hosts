@@ -2,11 +2,11 @@
 cloudera ansible_host=10.150.0.10 hostname=master-01.srv
 
 [cluster]
-master-01 ansible_host=10.150.0.10
-master-02 ansible_host=10.150.0.11
-worker-01 ansible_host=10.150.0.12
-worker-02 ansible_host=10.150.0.13
-worker-03 ansible_host=10.150.0.14
+master-01 ansible_host=10.150.0.10 hostname=master-01.srv
+master-02 ansible_host=10.150.0.11 hostname=master-02.srv
+worker-01 ansible_host=10.150.0.12 hostname=worker-01.srv
+worker-02 ansible_host=10.150.0.13 hostname=worker-02.srv
+worker-03 ansible_host=10.150.0.14 hostname=worker-03.srv
 
 [all:vars]
 ansible_user=silveira
@@ -14,8 +14,3 @@ ansible_ssh_private_key_file=/tmp/silveira
 ansible_become=yes
 tmp_dir=/tmp
 cluster_name=silveira
-master_01=master-01.srv
-master_02=master-02.srv
-worker_01=worker-01.srv
-worker_02=worker-02.srv
-worker_03=worker-03.srv
