@@ -170,30 +170,30 @@
   "instantiator" : {
     "clusterName" : "{{ cluster_name  }}",
     "hosts" : [ {
-      "hostName" : "{{ master-01 }}",
-      "hostTemplateRefName" : "HostTemplate-2-from-{{ master-01 }}"
+      "hostName" : "{{ master_01 }}",
+      "hostTemplateRefName" : "HostTemplate-2-from-{{ master_01 }}"
     }, {
-      "hostName" : "{{ master-02 }}",
-      "hostTemplateRefName" : "HostTemplate-0-from-{{ master-02 }}"
+      "hostName" : "{{ master_02 }}",
+      "hostTemplateRefName" : "HostTemplate-0-from-{{ master_02 }}"
     }, { 
-      "hostName" : "{{ worker-01 }}",
-      "hostTemplateRefName" : "HostTemplate-3-from-{{ worker-01 }}"
+      "hostName" : "{{ worker_01 }}",
+      "hostTemplateRefName" : "HostTemplate-3-from-{{ worker_01 }}"
     }, {
-      "hostName" : "{{ worker-02 }}",
-      "hostTemplateRefName" : "HostTemplate-1-from-{{ worker-02 }}"
+      "hostName" : "{{ worker_02 }}",
+      "hostTemplateRefName" : "HostTemplate-1-from-{{ worker_02 }}"
     }, {
-      "hostName" : "{{ worker-03 }}",
-      "hostTemplateRefName" : "HostTemplate-4-from-{{ worker-03 }}"
+      "hostName" : "{{ worker_03 }}",
+      "hostTemplateRefName" : "HostTemplate-4-from-{{ worker_03 }}"
     } ],
     "variables" : [ {
       "name" : "hive-hive_metastore_database_host",
-      "value" : "{{ master-01 }}"
+      "value" : "{{ master_01 }}"
     }, {
       "name" : "hive-hive_metastore_database_password",
       "value" : "hive"
     }, {
       "name" : "hue-database_host",
-      "value" : "{{ master-01 }}"
+      "value" : "{{ master_01 }}"
     }, {
       "name" : "hue-database_password",
       "value" : "hue"
@@ -202,7 +202,7 @@
       "value" : "mysql"
     }, {
       "name" : "oozie-OOZIE_SERVER-BASE-oozie_database_host",
-      "value" : "{{ master-01 }}"
+      "value" : "{{ master_01 }}"
     }, {
       "name" : "oozie-OOZIE_SERVER-BASE-oozie_database_password",
       "value" : "oozie"
