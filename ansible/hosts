@@ -1,12 +1,12 @@
 [cloudera-manager]
-cloudera ansible_host=10.150.0.10 hostname=master-01.srv
+cloudera ansible_host=10.150.0.10 hostname=namenode-01.internal
 
 [cluster]
-master-01 ansible_host=10.150.0.10 hostname=master-01.srv
-master-02 ansible_host=10.150.0.11 hostname=master-02.srv
-worker-01 ansible_host=10.150.0.12 hostname=worker-01.srv
-worker-02 ansible_host=10.150.0.13 hostname=worker-02.srv
-worker-03 ansible_host=10.150.0.14 hostname=worker-03.srv
+master-01 ansible_host=10.150.0.10 hostname=namenode-01.internal
+master-02 ansible_host=10.150.0.11 hostname=namenode-02.internal
+worker-01 ansible_host=10.150.0.12 hostname=datanode-01.internal
+worker-02 ansible_host=10.150.0.13 hostname=datanode-02.internal
+worker-03 ansible_host=10.150.0.14 hostname=datanode-03.internal
 
 [all:vars]
 ansible_user=silveira
