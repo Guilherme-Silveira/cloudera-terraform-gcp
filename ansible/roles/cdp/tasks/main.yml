@@ -32,6 +32,10 @@
     - telnet
     - unzip
     - nscd
+    - python3
+
+- name: Installing requests package on pip
+  command: pip3 install requests --user
 
 - name: disable firewalld
   systemd:
