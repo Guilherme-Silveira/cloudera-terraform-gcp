@@ -24,6 +24,26 @@ variable "instance5" {
  type = string
 }
 
+variable "hostname1" {
+ type = string
+}
+
+variable "hostname2" {
+ type = string
+}
+
+variable "hostname3" {
+ type = string
+}
+
+variable "hostname4" {
+ type = string
+}
+
+variable "hostname5" {
+ type = string
+}
+
 variable "zone" {
  type = string
 }
@@ -72,7 +92,7 @@ resource "google_compute_instance" "master-01" {
  name         = var.instance1
  machine_type = "n1-standard-4"
  zone         = "${var.zone}-a"
- hostname     = "${var.instance1}.srv"
+ hostname     = var.hostname1
 
  boot_disk {
    initialize_params {
@@ -98,7 +118,7 @@ resource "google_compute_instance" "master-02" {
  name         = var.instance2
  machine_type = "n1-standard-4"
  zone         = "${var.zone}-a"
- hostname     = "${var.instance2}.srv"
+ hostname     = var.hostname2
 
  boot_disk {
    initialize_params {
@@ -124,7 +144,7 @@ resource "google_compute_instance" "data-01" {
  name         = var.instance3
  machine_type = "n1-standard-4"
  zone         = "${var.zone}-a"
- hostname     = "${var.instance3}.srv"
+ hostname     = var.hostname3
 
  boot_disk {
    initialize_params {
@@ -150,7 +170,7 @@ resource "google_compute_instance" "data-02" {
  name         = var.instance4
  machine_type = "n1-standard-4"
  zone         = "${var.zone}-a"
- hostname     = "${var.instance4}.srv"
+ hostname     = var.hostname4
 
  boot_disk {
    initialize_params {
@@ -176,7 +196,7 @@ resource "google_compute_instance" "data-03" {
  name         = var.instance5
  machine_type = "n1-standard-4"
  zone         = "${var.zone}-a"
- hostname     = "${var.instance5}.srv"
+ hostname     = var.hostname5
 
  boot_disk {
    initialize_params {

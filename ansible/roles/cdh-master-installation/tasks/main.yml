@@ -49,8 +49,16 @@
   retries: 720
   delay: 5
 
+- name: Copy python script template
+  template:
+    src: ./set_cloudera_host.py.j2 
+    dest: /tmp/set_cloudera_host.py
+    owner: silveira
+    group: silveira
+    mode: '0755'
+
 - name: Create environment variable
-  shell: curl -u admin:admin -XGET http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/hosts | grep hostId | awk '{print $3}' | head -n1 | sed -e 's/^"//' -e 's/",$//'
+  command: python3 /tmp/set_cloudera_host.py
   register: idNode
 
 - name: Template a file to /etc/files.conf
