@@ -33,6 +33,9 @@
     - unzip
     - nscd
     - python3
+    - krb5-libs
+    - krb5-workstation
+    - openldap-*
 
 - name: Installing requests package on pip
   command: pip3 install requests --user
