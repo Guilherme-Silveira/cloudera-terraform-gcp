@@ -14,13 +14,13 @@
 - name: Copy file with owner and permissions - MySQL scripts
   copy:
     src: ./mysql.sh
-    dest: /tmp/mysql.sh
+    dest: "{{ tmp_dir }}/mysql.sh"
     owner: silveira
     group: silveira
     mode: '0755'
 
 - name: Execute MySQL script
-  command: bash /tmp/mysql.sh
+  command: bash {{ tmp_dir }}/mysql.sh
   become: yes
 
 - name: Installing cloudera-manager-server
@@ -51,19 +51,19 @@
 
 - name: Copy python script template
   template:
-    src: ./set_cloudera_host.py.j2 
-    dest: /tmp/set_cloudera_host.py
+    src: set_cloudera_host.py.j2 
+    dest: "{{ tmp_dir }}/set_cloudera_host.py"
     owner: silveira
     group: silveira
     mode: '0755'
 
 - name: Create environment variable
-  command: python3 /tmp/set_cloudera_host.py
+  command: python3 {{ tmp_dir }}/set_cloudera_host.py
   register: idNode
 
 - name: Template a file to /etc/files.conf
   template:
-    src: ./mgmt-template.json.j2
+    src: mgmt-template.json.j2
     dest: "{{ tmp_dir }}/mgmt-template.json"
     owner: silveira
     group: silveira
@@ -105,9 +105,9 @@
   retries: 720
   delay: 5
 
-- name: Cloudera template to /tmp/cm-template.json
+- name: Cloudera template
   template:
-    src: ./cm-template.json.j2
+    src: cm-template.json.j2
     dest: "{{ tmp_dir }}/cm-template.json"
     owner: silveira
     group: silveira

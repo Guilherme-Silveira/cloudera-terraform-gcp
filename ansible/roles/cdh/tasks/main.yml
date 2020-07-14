@@ -1,5 +1,5 @@
 ---
-# tasks file for cdp
+# tasks file for cdh
 - name: disable SELINUX
   command: setenforce 0
 
