@@ -80,6 +80,14 @@
     owner: cloudera-scm
     group: cloudera-scm
 
+- name: Download Cloudera Runtime parcel sha256
+  get_url:
+    url: https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
+    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
+    mode: '0644'
+    owner: cloudera-scm
+    group: cloudera-scm
+
 - name: Download Cloudera Runtime parcel sha
   copy:
     src: ./CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha
@@ -156,6 +164,31 @@
     user: admin
     password: admin
     method: POST
+  register: _result2
+  until: _result2.status == 200
+  retries: 720
+  delay: 5
+
+- name: Cloudera template to /tmp/cm-template.json
+  template:
+    src: cm-template.json.j2
+    dest: "{{ tmp_dir }}/cm-template.json"
+    owner: silveira
+    group: silveira
+    mode: '0644'
+
+- name: Content of JSON
+  command: cat {{ tmp_dir }}/cm-template.json
+  register: clouderaTemplateContent
+
+- name: Using Cluster Deployment
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
+    body: "{{ clouderaTemplateContent.stdout }}"
+    user: admin
+    password: admin
+    method: POST
+    body_format: json
   register: _result2
   until: _result2.status == 200
   retries: 720
