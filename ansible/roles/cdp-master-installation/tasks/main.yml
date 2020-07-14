@@ -101,10 +101,6 @@
   command: python3 {{ tmp_dir }}/set_cloudera_host.py
   register: idNode
 
-#- name: Create environment variable
-#  shell: curl -u admin:admin -XGET http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/hosts | grep hostId | awk '{print $3}' | head -n1 | sed -e 's/^"//' -e 's/",$//'
-#  register: idNode
-
 - name: MGMT template
   template:
     src: mgmt-template.json.j2
