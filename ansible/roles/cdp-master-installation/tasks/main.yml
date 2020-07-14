@@ -161,28 +161,6 @@
   retries: 720
   delay: 5
 
-- name: Distrubute Cloudera Parcel
-  uri:
-    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/clusters/{{ cluster_name }}/parcels/products/CDH/versions/7.1.1-1.cdh7.1.1.p0.3266817-el7/commands/startDistribution"
-    user: admin
-    password: admin
-    method: POST
-  register: _result2
-  until: _result2.status == 200
-  retries: 720
-  delay: 5
-
-- name: Activate Cloudera Parcel
-  uri:
-    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/clusters/{{ cluster_name }}/parcels/products/CDH/versions/7.1.1-1.cdh7.1.1.p0.3266817-el7/commands/activate"
-    user: admin
-    password: admin
-    method: POST
-  register: _result2
-  until: _result2.status == 200
-  retries: 720
-  delay: 5
-
 - name: Cloudera template to /tmp/cm-template.json
   template:
     src: cm-template.json.j2
@@ -208,3 +186,30 @@
   retries: 720
   delay: 5
 
+  - name: Distrubute Cloudera Parcel
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/clusters/{{ cluster_name }}/parcels/products/CDH/versions/7.1.1-1.cdh7.1.1.p0.3266817-el7/commands/startDistribution"
+    user: admin
+    password: admin
+    method: POST
+  register: _result3
+  until: _result3.status == 200
+  retries: 720
+  delay: 5
+
+- name: Activate Cloudera Parcel
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/clusters/{{ cluster_name }}/parcels/products/CDH/versions/7.1.1-1.cdh7.1.1.p0.3266817-el7/commands/activate"
+    user: admin
+    password: admin
+    method: POST
+  register: _result4
+  until: _result4.status == 200
+  retries: 720
+  delay: 5
+
+- name: Start Cloudera Manager Server
+  systemd:
+    name: cloudera-scm-server
+    state: restarted
+    enabled: yes
