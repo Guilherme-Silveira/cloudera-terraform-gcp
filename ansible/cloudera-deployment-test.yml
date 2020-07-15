@@ -5,7 +5,7 @@
   tasks:
     - name: Cloudera template to /tmp/cm-template.json
       template:
-        src: cm-template.json.j2
+        src: ~/cloudera-terraform-gcp/ansible/roles/cdp-master-installation/templates/cm-template.json.j2
         dest: "{{ tmp_dir }}/cm-template.json"
         owner: silveira
         group: silveira
