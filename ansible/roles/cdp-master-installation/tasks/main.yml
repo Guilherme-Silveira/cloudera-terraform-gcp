@@ -72,29 +72,29 @@
     owner: cloudera-scm
     group: cloudera-scm
 
-- name: Download Cloudera Runtime parcel
-  get_url:
-    url: https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel
-    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel
-    mode: '0644'
-    owner: cloudera-scm
-    group: cloudera-scm
+#- name: Download Cloudera Runtime parcel
+#  get_url:
+#    url: https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel
+#    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel
+#    mode: '0644'
+#   owner: cloudera-scm
+#    group: cloudera-scm
 
-- name: Download Cloudera Runtime parcel sha256
-  get_url:
-    url: https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
-    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
-    mode: '0644'
-    owner: cloudera-scm
-    group: cloudera-scm
+#- name: Download Cloudera Runtime parcel sha256
+#  get_url:
+#    url: https://archive.cloudera.com/cdh7/7.1.1.0/parcels/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
+#    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha256
+#    mode: '0644'
+#    owner: cloudera-scm
+#    group: cloudera-scm
 
-- name: Download Cloudera Runtime parcel sha
-  copy:
-    src: ./CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha
-    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha
-    owner: cloudera-scm
-    group: cloudera-scm
-    mode: '0755'
+#- name: Download Cloudera Runtime parcel sha
+#  copy:
+#    src: ./CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha
+#    dest: /opt/cloudera/parcel-repo/CDH-7.1.1-1.cdh7.1.1.p0.3266817-el7.parcel.sha
+#    owner: cloudera-scm
+#    group: cloudera-scm
+#    mode: '0755'
 
 - name: Start Cloudera Manager Server
   systemd:
