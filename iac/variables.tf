@@ -1,3 +1,27 @@
+variable "credentials" {
+ type = string
+}
+
+variable "project" {
+ type = string
+}
+
+variable "network" {
+ type = string
+}
+
+variable "masters_machine_type" {
+ type = string
+}
+
+variable "workers_machine_type" {
+ type = string
+}
+
+variable "image" {
+ type = string
+}
+
 variable "instance1" {
  type = string
 }
@@ -38,11 +62,35 @@ variable "hostname5" {
  type = string
 }
 
-variable "zone" {
+variable "region" {
  type = string
 }
 
-variable "disk_size" {
+variable "zone1" {
+ type = string
+}
+
+variable "zone2" {
+ type = string
+}
+
+variable "zone3" {
+ type = string
+}
+
+variable "zone4" {
+ type = string
+}
+
+variable "zone5" {
+ type = string
+}
+
+variable "masters_disk_size" {
+ type = string
+}
+
+variable "workers_disk_size" {
  type = string
 }
 
@@ -67,6 +115,14 @@ variable "ip5" {
 }
 
 variable "ssh_key" {
+ type = string
+}
+
+variable "user" {
+ type = string
+}
+
+variable "bastion_user" {
  type = string
 }
 
