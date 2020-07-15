@@ -2,38 +2,12 @@
   "cdhVersion" : "6.3.2",
   "displayName" : "{{ cluster_name }}",
   "cmVersion" : "6.3.1",
-  "repositories" : [ "https://archive.cloudera.com/cdh6/{latest_supported}/parcels/", "https://archive.cloudera.com/cdh5/parcels/5.16/", "https://parcels.repos.intel.com/mkl/latest", "https://archive.cloudera.com/accumulo-c5/parcels/latest/", "https://archive.cloudera.com/accumulo6/6.1/parcels/", "https://archive.cloudera.com/kafka/parcels/latest/", "http://archive.cloudera.com/kudu/parcels/latest/", "https://archive.cloudera.com/spark/parcels/latest/", "https://archive.cloudera.com/sqoop-teradata-connector1/latest/", "https://archive.cloudera.com/sqoop-connectors/parcels/latest/", "https://archive.cloudera.com/sqoop-netezza-connector1/latest/", "https://archive.cloudera.com/CFM/parcels/1.0.1.0/" ],
+  "repositories" : [ "https://archive.cloudera.com/cdh6/{latest_supported}/parcels/", "https://archive.cloudera.com/cdh5/parcels/5.16/", "https://parcels.repos.intel.com/mkl/latest", "https://archive.cloudera.com/accumulo-c5/parcels/latest/", "https://archive.cloudera.com/accumulo6/6.1/parcels/", "https://archive.cloudera.com/kafka/parcels/latest/", "http://archive.cloudera.com/kudu/parcels/latest/", "https://archive.cloudera.com/spark/parcels/latest/", "https://archive.cloudera.com/sqoop-teradata-connector1/latest/", "https://archive.cloudera.com/sqoop-connectors/parcels/latest/", "https://archive.cloudera.com/sqoop-netezza-connector1/latest/" ],
   "products" : [ {
     "version" : "6.3.2-1.cdh6.3.2.p0.1605554",
     "product" : "CDH"
-  }, {
-    "version" : "1.0.1.0",
-    "product" : "CFM"
   } ],
   "services" : [ {
-    "refName" : "hive",
-    "serviceType" : "HIVE",
-    "serviceConfigs" : [ {
-      "name" : "hive_metastore_database_password",
-      "variable" : "hive-hive_metastore_database_password"
-    }, {
-      "name" : "hive_metastore_database_host",
-      "variable" : "hive-hive_metastore_database_host"
-    } ],
-    "roleConfigGroups" : [ {
-      "refName" : "hive-GATEWAY-BASE",
-      "roleType" : "GATEWAY",
-      "base" : true
-    }, {
-      "refName" : "hive-HIVESERVER2-BASE",
-      "roleType" : "HIVESERVER2",
-      "base" : true
-    }, {
-      "refName" : "hive-HIVEMETASTORE-BASE",
-      "roleType" : "HIVEMETASTORE",
-      "base" : true
-    } ]
-  }, {
     "refName" : "zookeeper",
     "serviceType" : "ZOOKEEPER",
     "roleConfigGroups" : [ {
@@ -69,11 +43,11 @@
       "name" : "database_password",
       "variable" : "hue-database_password"
     }, {
-      "name" : "database_host",
-      "variable" : "hue-database_host"
-    }, {
       "name" : "database_type",
       "variable" : "hue-database_type"
+    }, {
+      "name" : "database_host",
+      "variable" : "hue-database_host"
     } ],
     "roleConfigGroups" : [ {
       "refName" : "hue-HUE_SERVER-BASE",
@@ -87,10 +61,6 @@
   }, {
     "refName" : "hdfs",
     "serviceType" : "HDFS",
-    "serviceConfigs" : [ {
-      "name" : "service_health_suppression_hdfs_verify_ec_with_topology",
-      "value" : "true"
-    } ],
     "roleConfigGroups" : [ {
       "refName" : "hdfs-NAMENODE-BASE",
       "roleType" : "NAMENODE",
@@ -153,15 +123,26 @@
       "base" : true
     } ]
   }, {
-    "refName" : "nifi",
-    "serviceType" : "NIFI",
+    "refName" : "hive",
+    "serviceType" : "HIVE",
     "serviceConfigs" : [ {
-      "name" : "zookeeper_service",
-      "ref" : "zookeeper"
+      "name" : "hive_metastore_database_password",
+      "variable" : "hive-hive_metastore_database_password"
+    }, {
+      "name" : "hive_metastore_database_host",
+      "variable" : "hive-hive_metastore_database_host"
     } ],
     "roleConfigGroups" : [ {
-      "refName" : "nifi-NIFI_NODE-BASE",
-      "roleType" : "NIFI_NODE",
+      "refName" : "hive-GATEWAY-BASE",
+      "roleType" : "GATEWAY",
+      "base" : true
+    }, {
+      "refName" : "hive-HIVESERVER2-BASE",
+      "roleType" : "HIVESERVER2",
+      "base" : true
+    }, {
+      "refName" : "hive-HIVEMETASTORE-BASE",
+      "roleType" : "HIVEMETASTORE",
       "base" : true
     } ]
   } ],
@@ -170,21 +151,21 @@
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-SECONDARYNAMENODE-BASE", "hive-GATEWAY-BASE", "zookeeper-SERVER-BASE" ]
   }, {
-    "refName" : "HostTemplate-1-from-{{ hostvars['worker-01'].hostname }}",
+    "refName" : "HostTemplate-1-from-{{ hostvars['worker-02'].hostname }}",
     "cardinality" : 1,
-    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-1", "hive-GATEWAY-BASE", "impala-IMPALAD-1", "nifi-NIFI_NODE-BASE", "yarn-NODEMANAGER-1", "zookeeper-SERVER-BASE" ]
+    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "yarn-NODEMANAGER-BASE" ]
+  }, {
+    "refName" : "HostTemplate-4-from-{{ hostvars['worker-03'].hostname }}",
+    "cardinality" : 1,
+    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "yarn-NODEMANAGER-BASE" ]
   }, {
     "refName" : "HostTemplate-2-from-{{ hostvars['master-01'].hostname }}",
     "cardinality" : 1,
     "roleConfigGroupsRefNames" : [ "hdfs-BALANCER-BASE", "hdfs-NAMENODE-BASE", "hive-GATEWAY-BASE", "hive-HIVEMETASTORE-BASE", "hive-HIVESERVER2-BASE", "hue-HUE_LOAD_BALANCER-BASE", "hue-HUE_SERVER-BASE", "impala-CATALOGSERVER-BASE", "impala-STATESTORE-BASE", "oozie-OOZIE_SERVER-BASE", "yarn-JOBHISTORY-BASE", "yarn-RESOURCEMANAGER-BASE", "zookeeper-SERVER-BASE" ]
   }, {
-    "refName" : "HostTemplate-3-from-{{ hostvars['worker-02'].hostname }}",
+    "refName" : "HostTemplate-3-from-{{ hostvars['worker-01'].hostname }}",
     "cardinality" : 1,
-    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "nifi-NIFI_NODE-BASE", "yarn-NODEMANAGER-BASE" ]
-  }, {
-    "refName" : "HostTemplate-4-from-{{ hostvars['worker-03'].hostname }}",
-    "cardinality" : 1,
-    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-BASE", "hive-GATEWAY-BASE", "impala-IMPALAD-BASE", "nifi-NIFI_NODE-BASE", "yarn-NODEMANAGER-BASE" ]
+    "roleConfigGroupsRefNames" : [ "hdfs-DATANODE-1", "hive-GATEWAY-BASE", "impala-IMPALAD-1", "yarn-NODEMANAGER-1", "zookeeper-SERVER-BASE" ]
   } ],
   "instantiator" : {
     "clusterName" : "{{ cluster_name  }}",
@@ -196,10 +177,10 @@
       "hostTemplateRefName" : "HostTemplate-0-from-{{ hostvars['master-02'].hostname }}"
     }, { 
       "hostName" : "{{ hostvars['worker-01'].hostname }}",
-      "hostTemplateRefName" : "HostTemplate-1-from-{{ hostvars['worker-01'].hostname }}"
+      "hostTemplateRefName" : "HostTemplate-3-from-{{ hostvars['worker-01'].hostname }}"
     }, {
       "hostName" : "{{ hostvars['worker-02'].hostname }}",
-      "hostTemplateRefName" : "HostTemplate-3-from-{{ hostvars['worker-02'].hostname }}"
+      "hostTemplateRefName" : "HostTemplate-1-from-{{ hostvars['worker-02'].hostname }}"
     }, {
       "hostName" : "{{ hostvars['worker-03'].hostname }}",
       "hostTemplateRefName" : "HostTemplate-4-from-{{ hostvars['worker-03'].hostname }}"
