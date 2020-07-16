@@ -76,6 +76,22 @@ resource "null_resource" "hosts" {
    }
    inline = [
      "cd /home/silveira/cloudera-terraform-gcp/ansible",
+     "cat < EOF > hosts",
+     "[cloudera-manager]",
+     "cloudera ansible_host=${var.ip1} hostname=${var.hostname1} host=${var.instance1}",
+     "[cluster]",
+     "master-01 ansible_host=${var.ip1} hostname=${var.hostname1} host=${var.instance1}",
+     "master-02 ansible_host=${var.ip2} hostname=${var.hostname2} host=${var.instance2}",
+     "worker-01 ansible_host=${var.ip3} hostname=${var.hostname3} host=${var.instance3}",
+     "worker-02 ansible_host=${var.ip4} hostname=${var.hostname4} host=${var.instance4}",
+     "worker-03 ansible_host=${var.ip5} hostname=${var.hostname5} host=${var.instance5}",
+     "[all:vars]",
+     "ansible_user=${var.user}",
+     "ansible_ssh_private_key_file=${var.bastion_private_key}",
+     "ansible_become=yes",
+     "tmp_dir=${var.tmp_dir}",
+     "cluster_name=${var.cluster_name}"
+     "EOF",
      "ansible-playbook -i hosts ${var.playbook}",
    ]
  }

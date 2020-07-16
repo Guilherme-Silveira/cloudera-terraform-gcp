@@ -126,6 +126,18 @@ variable "bastion_user" {
  type = string
 }
 
+variable "bastion_private_key" {
+ type = string
+}
+
+variable "cluster_name" {
+ type = string
+}
+
+variable "tmp_dir" {
+ type = string
+}
+
 variable "bastion_ip" {
  type = string
 }
