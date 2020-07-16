@@ -15,8 +15,8 @@
   copy:
     src: ./mysql.sh
     dest: "{{ tmp_dir }}/mysql.sh"
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0755'
 
 - name: Execute MySQL script
@@ -93,8 +93,8 @@
   template:
     src: set_cloudera_host.py.j2
     dest: "{{ tmp_dir }}/set_cloudera_host.py"
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0755'
 
 - name: Create environment variable
@@ -105,8 +105,8 @@
   template:
     src: mgmt-template.json.j2
     dest: "{{ tmp_dir }}/mgmt-template.json"
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0644'
   vars:
     masterid: "{{ idNode.stdout }}"
@@ -149,8 +149,8 @@
   template:
     src: cm-template.json.j2
     dest: "{{ tmp_dir }}/cm-template.json"
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: '0644'
 
 - name: Content of JSON
