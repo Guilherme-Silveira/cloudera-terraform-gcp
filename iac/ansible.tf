@@ -72,7 +72,7 @@ resource "null_resource" "hosts" {
      type = "ssh"
      user = var.bastion_user
      host = var.bastion_ip
-     private_key = file(var.private_key)
+     private_key = file(var.bastion_private_key)
    }
    inline = [
      "cd /home/silveira/cloudera-terraform-gcp/ansible",
@@ -87,7 +87,7 @@ resource "null_resource" "hosts" {
      "worker-03 ansible_host=${var.ip5} hostname=${var.hostname5} host=${var.instance5}",
      "[all:vars]",
      "ansible_user=${var.user}",
-     "ansible_ssh_private_key_file=${var.bastion_private_key}",
+     "ansible_ssh_private_key_file=${var.ansible_private_key}",
      "ansible_become=yes",
      "tmp_dir=${var.tmp_dir}",
      "cluster_name=${var.cluster_name}",

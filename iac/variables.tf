@@ -130,6 +130,10 @@ variable "bastion_private_key" {
  type = string
 }
 
+variable "ansible_private_key" {
+ type = string
+}
+
 variable "cluster_name" {
  type = string
 }
