@@ -153,3 +153,7 @@ variable "private_key" {
 variable "playbook" {
  type = string
 }
+
+variable "ansible_home" {
+ type = string
+}
