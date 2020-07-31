@@ -1,6 +1,6 @@
 resource "google_compute_instance" "master-01" {
  name         = var.instance1
- machine_type = var.masters_machine_type
+ machine_type = var.master1_machine_type
  zone         = var.zone1
  hostname     = var.hostname1
 
@@ -24,7 +24,7 @@ resource "google_compute_instance" "master-01" {
 
 resource "google_compute_instance" "master-02" {
  name         = var.instance2
- machine_type = var.masters_machine_type
+ machine_type = var.master2_machine_type
  zone         = var.zone2
  hostname     = var.hostname2
 

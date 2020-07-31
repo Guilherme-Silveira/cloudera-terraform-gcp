@@ -10,7 +10,11 @@ variable "network" {
  type = string
 }
 
-variable "masters_machine_type" {
+variable "master1_machine_type" {
+ type = string
+}
+
+variable "master2_machine_type" {
  type = string
 }
 

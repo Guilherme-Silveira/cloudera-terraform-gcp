@@ -1,0 +1,155 @@
+---
+# tasks file for cdh-master-installation
+- name: Installing maria-db-server
+  yum:
+    name: mariadb-server
+    state: latest
+
+- name: Start and Enable maria-db
+  systemd:
+    state: started
+    enabled: yes
+    name: mariadb
+
+- name: Copy file with owner and permissions - MySQL scripts
+  copy:
+    src: ./mysql.sh
+    dest: "{{ tmp_dir }}/mysql.sh"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Execute MySQL script
+  command: bash {{ tmp_dir }}/mysql.sh
+  become: yes
+
+- name: Installing cloudera-manager-server
+  yum:
+    name: cloudera-manager-server
+    state: present
+
+- name: SCM Prepare Database
+  command: bash /opt/cloudera/cm/schema/scm_prepare_database.sh mysql scm scm scm
+  become: yes
+
+- name: Download Streamsets csd
+  get_url:
+    url: https://archives.streamsets.com/datacollector/3.17.0/csd/STREAMSETS-3.17.0.jar
+    dest: /opt/cloudera/csd/STREAMSETS-3.17.0.jar
+    mode: '0644'
+    owner: cloudera-scm
+    group: cloudera-scm
+
+- name: Download Streamsets parcel
+  get_url:
+    url: https://archives.streamsets.com/datacollector/3.17.0/parcel/activation/STREAMSETS_DATACOLLECTOR-3.17.0-el7.parcel
+    dest: /opt/cloudera/parcel-repo/STREAMSETS_DATACOLLECTOR-3.17.0-el7.parcel
+    mode: '0644'
+    owner: cloudera-scm
+    group: cloudera-scm
+
+- name: Download Streamsets parcel sha
+  get_url:
+    url: https://archives.streamsets.com/datacollector/3.17.0/parcel/activation/STREAMSETS_DATACOLLECTOR-3.17.0-el7.parcel.sha
+    dest: /opt/cloudera/parcel-repo/STREAMSETS_DATACOLLECTOR-3.17.0-el7.parcel.sha
+    mode: '0644'
+    owner: cloudera-scm
+    group: cloudera-scm
+
+- name: Start Cloudera Manager Server
+  systemd:
+    name: cloudera-scm-server
+    state: started
+    enabled: yes
+
+- name: Checking Cloudera Manager API
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/hosts"
+    user: admin
+    password: admin
+    method: GET
+  register: _result
+  until: _result.status == 200
+  retries: 720
+  delay: 5
+
+- name: Copy python script template
+  template:
+    src: set_cloudera_host.py.j2 
+    dest: "{{ tmp_dir }}/set_cloudera_host.py"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+
+- name: Create environment variable
+  command: python3 {{ tmp_dir }}/set_cloudera_host.py
+  register: idNode
+
+- name: Template a file to /etc/files.conf
+  template:
+    src: mgmt-template.json.j2
+    dest: "{{ tmp_dir }}/mgmt-template.json"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+  vars:
+    masterid: "{{ idNode.stdout }}"
+
+- name: Content of JSON
+  command: cat {{ tmp_dir }}/mgmt-template.json
+  register: jsonContent
+
+- name: Use Trial License
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/trial/begin"
+    user: admin
+    password: admin
+    method: POST
+    status_code: 204
+
+- name: Create MGMT
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/service"
+    body: "{{ content }}"
+    user: admin
+    password: admin
+    method: PUT
+    body_format: json
+  vars:
+    content: "{{ jsonContent.stdout }}"
+
+- name: Start MGMT
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/service/commands/start"
+    user: admin
+    password: admin
+    method: POST
+  register: _result2
+  until: _result2.status == 200
+  retries: 720
+  delay: 5
+
+- name: Cloudera template
+  template:
+    src: cm-template.json.j2
+    dest: "{{ tmp_dir }}/cm-template.json"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0644'
+
+- name: Content of JSON
+  command: cat {{ tmp_dir }}/cm-template.json
+  register: clouderaTemplateContent
+
+- name: Using Cluster Deployment
+  uri:
+    url: "http://{{ hostvars['cloudera'].ansible_default_ipv4.address }}:7180/api/v12/cm/importClusterTemplate?addRepositories=true"
+    body: "{{ clouderaTemplateContent.stdout }}"
+    user: admin
+    password: admin
+    method: POST
+    body_format: json
+  register: _result2
+  until: _result2.status == 200
+  retries: 720 
+  delay: 5

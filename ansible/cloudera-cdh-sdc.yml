@@ -9,4 +9,4 @@
   gather_facts: true
   become: true
   roles:
-    - cdh-master-installation
+    - cdh-master-installation-sdc
