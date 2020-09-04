@@ -123,6 +123,10 @@
   }, {
     "refName" : "tez",
     "serviceType" : "TEZ",
+    "serviceConfigs" : [ {
+      "name" : "tez.am.resource.memory.mb",
+      "value" : "1024"
+    } ],
     "roleConfigGroups" : [ {
       "refName" : "tez-GATEWAY-BASE",
       "roleType" : "GATEWAY",
@@ -146,14 +150,26 @@
     "roleConfigGroups" : [ {
       "refName" : "yarn-RESOURCEMANAGER-BASE",
       "roleType" : "RESOURCEMANAGER",
+      "configs" : [ {
+        "name" : "yarn_scheduler_maximum_allocation_mb",
+        "value" : "2048"
+      } ],
       "base" : true
     }, {
       "refName" : "yarn-NODEMANAGER-BASE",
       "roleType" : "NODEMANAGER",
+      "configs" : [ {
+        "name" : "yarn_nodemanager_resource_memory_mb",
+        "value" : "2048"
+      } ],
       "base" : true
     }, {
       "refName" : "yarn-NODEMANAGER-1",
       "roleType" : "NODEMANAGER",
+      "configs" : [ {
+        "name" : "yarn_nodemanager_resource_memory_mb",
+        "value" : "2048"
+      } ],
       "base" : false
     }, {
       "refName" : "yarn-JOBHISTORY-BASE",
