@@ -161,3 +161,18 @@ variable "playbook" {
 variable "ansible_home" {
  type = string
 }
+
+variable "cm_version" {
+ type = string
+ default = "0.0.0"
+}
+
+variable "cdh_version" {
+ type = string
+ default = "0.0.0"
+}
+
+variable "cdh_parcels_version" {
+ type = string
+ default = "0"
+}

@@ -91,6 +91,9 @@ resource "null_resource" "hosts" {
      "ansible_become=yes",
      "tmp_dir=${var.tmp_dir}",
      "cluster_name=${var.cluster_name}",
+     "cm_version=${var.cm_version}",
+     "cdh_version=${var.cdh_version}",
+     "cdh_parcels_version=${var.cdh_parcels_version}",
      "EOF",
      "ansible-playbook -i hosts ${var.playbook}",
    ]
